@@ -11,5 +11,12 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.tempfastmail.rule=Host(`tempfastmail.com`)"
       - "traefik.http.routers.tempfastmail.entrypoints=web"
+    volumes:
+      - tempfastmail_caddy_data:/data
+      - tempfastmail_caddy_config:/config
     networks:
       - traefik
+
+volumes:
+  tempfastmail_caddy_data:
+  tempfastmail_caddy_config:
