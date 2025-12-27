@@ -1,0 +1,13 @@
+services:
+  php:
+    image: ${IMAGES_PREFIX:-}app-php
+    restart: unless-stopped
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      - "80:80"
+
+volumes:
+  caddy_data:
+  caddy_config:
