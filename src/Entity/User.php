@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Entity\TemporaryEmailBox;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,6 +33,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, TemporaryEmailBox>
+     */
+    #[ORM\OneToMany(targetEntity: TemporaryEmailBox::class, mappedBy: 'owner')]
+    private Collection $temporaryEmailBoxes;
+
+    public function __construct(private readonly TemporaryEmailBox $temporaryEmailBox)
+    {
+        $this->temporaryEmailBoxes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -126,5 +140,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         // @deprecated, to be removed when upgrading to Symfony 8
+    }
+
+    public function __toString(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return Collection<int, TemporaryEmailBox>
+     */
+    public function getTemporaryEmailBoxes(): Collection
+    {
+        return $this->temporaryEmailBoxes;
+    }
+
+    public function addTemporaryEmailBox(TemporaryEmailBox $temporaryEmailBox): static
+    {
+        if (!$this->temporaryEmailBoxes->contains($temporaryEmailBox)) {
+            $this->temporaryEmailBoxes->add($temporaryEmailBox);
+            $temporaryEmailBox->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTemporaryEmailBox(TemporaryEmailBox $temporaryEmailBox): static
+    {
+        if ($this->temporaryEmailBoxes->removeElement($temporaryEmailBox)) {
+            // set the owning side to null (unless already changed)
+            if ($temporaryEmailBox->getOwner() === $this) {
+                $temporaryEmailBox->setOwner(null);
+            }
+        }
+
+        return $this;
     }
 }

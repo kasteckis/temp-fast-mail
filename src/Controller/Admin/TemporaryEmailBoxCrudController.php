@@ -2,19 +2,19 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
+use App\Entity\TemporaryEmailBox;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class UserCrudController extends AbstractCrudController
+class TemporaryEmailBoxCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return User::class;
+        return TemporaryEmailBox::class;
     }
 
     public function configureFields(string $pageName): iterable
@@ -22,10 +22,9 @@ class UserCrudController extends AbstractCrudController
         return [
             IdField::new('id')->setDisabled(),
             TextField::new('email'),
-            TextField::new('newPassword')->hideOnIndex(),
-            TextField::new('password')->setDisabled()->hideOnIndex(),
-            ArrayField::new('roles'),
-            AssociationField::new('temporaryEmailBoxes'),
+            TextField::new('encryptedEmail'),
+            IntegerField::new('receivedEmailsCount'),
+            AssociationField::new('owner'),
         ];
     }
 }
