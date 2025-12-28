@@ -16,28 +16,30 @@ class DomainRepository extends ServiceEntityRepository
         parent::__construct($registry, Domain::class);
     }
 
-    //    /**
-    //     * @return Domain[] Returns an array of Domain objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('d')
-    //            ->andWhere('d.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('d.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function countOfActiveDomains(): int
+    {
+        $now = new \DateTimeImmutable();
 
-    //    public function findOneBySomeField($value): ?Domain
-    //    {
-    //        return $this->createQueryBuilder('d')
-    //            ->andWhere('d.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        return (int) $this->createQueryBuilder('d')
+            ->select('COUNT(d.id)')
+            ->andWhere('d.activeUntil >= :now')
+            ->setParameter('now', $now)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findOneActiveRandomDomain(): ?Domain
+    {
+        $now = new \DateTimeImmutable();
+        $count = $this->countOfActiveDomains();
+        $randomOffset = rand(0, $count - 1);
+
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.activeUntil >= :now')
+            ->setParameter('now', $now)
+            ->setMaxResults(1)
+            ->setFirstResult($randomOffset)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

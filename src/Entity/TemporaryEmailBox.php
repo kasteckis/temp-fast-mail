@@ -6,6 +6,7 @@ use App\Repository\TemporaryEmailBoxRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: TemporaryEmailBoxRepository::class)]
 class TemporaryEmailBox
@@ -17,9 +18,6 @@ class TemporaryEmailBox
 
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $encryptedEmail = null;
 
     #[ORM\ManyToOne(inversedBy: 'temporaryEmailBoxes')]
     private ?User $owner = null;
@@ -34,10 +32,14 @@ class TemporaryEmailBox
     private ?string $creatorIp = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private \DateTimeImmutable $createdAt;
+
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private Uuid $uuid;
 
     public function __construct()
     {
+        $this->uuid = Uuid::v4();
         $this->receivedEmails = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
     }
@@ -55,18 +57,6 @@ class TemporaryEmailBox
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getEncryptedEmail(): ?string
-    {
-        return $this->encryptedEmail;
-    }
-
-    public function setEncryptedEmail(string $encryptedEmail): static
-    {
-        $this->encryptedEmail = $encryptedEmail;
 
         return $this;
     }
@@ -125,7 +115,7 @@ class TemporaryEmailBox
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
@@ -133,6 +123,18 @@ class TemporaryEmailBox
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUuid(): Uuid
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(Uuid $uuid): static
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }
