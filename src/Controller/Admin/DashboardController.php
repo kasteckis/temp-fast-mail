@@ -23,6 +23,8 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
+            ->setFaviconPath('favicon.png') // TODO: Update!
+            ->generateRelativeUrls()
             ->setTitle('Temporary Fast Mail Admin Dashboard');
     }
 
