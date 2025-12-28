@@ -20,25 +20,22 @@ class ReceivedEmail
     #[ORM\Column(length: 255)]
     private ?string $realTo = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $subject = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $fromName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $fromAddress = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $bccName = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $bccAddress = null;
 
     #[ORM\Column]
     private array $toMultiple = [];
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column]
+    private array $bccMultiple = [];
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $html = null;
 
     #[ORM\Column]
@@ -86,7 +83,7 @@ class ReceivedEmail
         return $this->subject;
     }
 
-    public function setSubject(string $subject): static
+    public function setSubject(?string $subject): static
     {
         $this->subject = $subject;
 
@@ -98,7 +95,7 @@ class ReceivedEmail
         return $this->fromName;
     }
 
-    public function setFromName(string $fromName): static
+    public function setFromName(?string $fromName): static
     {
         $this->fromName = $fromName;
 
@@ -110,33 +107,9 @@ class ReceivedEmail
         return $this->fromAddress;
     }
 
-    public function setFromAddress(string $fromAddress): static
+    public function setFromAddress(?string $fromAddress): static
     {
         $this->fromAddress = $fromAddress;
-
-        return $this;
-    }
-
-    public function getBccName(): ?string
-    {
-        return $this->bccName;
-    }
-
-    public function setBccName(string $bccName): static
-    {
-        $this->bccName = $bccName;
-
-        return $this;
-    }
-
-    public function getBccAddress(): ?string
-    {
-        return $this->bccAddress;
-    }
-
-    public function setBccAddress(string $bccAddress): static
-    {
-        $this->bccAddress = $bccAddress;
 
         return $this;
     }
@@ -158,7 +131,7 @@ class ReceivedEmail
         return $this->html;
     }
 
-    public function setHtml(string $html): static
+    public function setHtml(?string $html): static
     {
         $this->html = $html;
 
@@ -185,6 +158,18 @@ class ReceivedEmail
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getBccMultiple(): array
+    {
+        return $this->bccMultiple;
+    }
+
+    public function setBccMultiple(array $bccMultiple): static
+    {
+        $this->bccMultiple = $bccMultiple;
 
         return $this;
     }
