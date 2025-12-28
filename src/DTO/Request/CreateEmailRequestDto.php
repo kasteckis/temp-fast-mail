@@ -19,6 +19,7 @@ class CreateEmailRequestDto
         public readonly ?string $subject,
         public readonly ?string $from_name,
         public readonly ?string $from_address,
+        public readonly ?array $to_multiple,
         public readonly ?array $bcc_multiple,
         public readonly ?string $html,
         public readonly ?array $metadata,

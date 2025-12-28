@@ -17,8 +17,8 @@ class ReceivedEmailFactory
             ->setSubject($dto->subject)
             ->setFromName($dto->from_name)
             ->setFromAddress($dto->from_address)
-            ->setToMultiple($dto->toMultiple ?? [])
-            ->setBccMultiple($dto->bccMultiple ?? [])
+            ->setToMultiple($dto->to_multiple ?? [])
+            ->setBccMultiple($dto->bcc_multiple ?? [])
             ->setHtml($dto->html)
             ->setMetadata($dto->metadata ?? []);
 
