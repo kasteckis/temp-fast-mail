@@ -212,4 +212,9 @@ class ReceivedEmail
 
         return 'Yes';
     }
+
+    public function __toString(): string
+    {
+        return sprintf('From %s with subject: %s', $this->realFrom, $this->subject ?? '(no subject)');
+    }
 }

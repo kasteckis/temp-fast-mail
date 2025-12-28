@@ -21,9 +21,6 @@ class TemporaryEmailBox
     #[ORM\Column(length: 255)]
     private ?string $encryptedEmail = null;
 
-    #[ORM\Column]
-    private ?int $receivedEmailsCount = null;
-
     #[ORM\ManyToOne(inversedBy: 'temporaryEmailBoxes')]
     private ?User $owner = null;
 
@@ -33,9 +30,16 @@ class TemporaryEmailBox
     #[ORM\OneToMany(targetEntity: ReceivedEmail::class, mappedBy: 'temporaryEmailBox')]
     private Collection $receivedEmails;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $creatorIp = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function __construct()
     {
         $this->receivedEmails = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -63,18 +67,6 @@ class TemporaryEmailBox
     public function setEncryptedEmail(string $encryptedEmail): static
     {
         $this->encryptedEmail = $encryptedEmail;
-
-        return $this;
-    }
-
-    public function getReceivedEmailsCount(): ?int
-    {
-        return $this->receivedEmailsCount;
-    }
-
-    public function setReceivedEmailsCount(int $receivedEmailsCount): static
-    {
-        $this->receivedEmailsCount = $receivedEmailsCount;
 
         return $this;
     }
@@ -117,6 +109,30 @@ class TemporaryEmailBox
                 $receivedEmail->setTemporaryEmailBox(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatorIp(): ?string
+    {
+        return $this->creatorIp;
+    }
+
+    public function setCreatorIp(?string $creatorIp): static
+    {
+        $this->creatorIp = $creatorIp;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

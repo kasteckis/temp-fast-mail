@@ -3,8 +3,10 @@
 namespace App\Controller\Admin;
 
 use App\Entity\TemporaryEmailBox;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -23,8 +25,16 @@ class TemporaryEmailBoxCrudController extends AbstractCrudController
             IdField::new('id')->setDisabled(),
             TextField::new('email'),
             TextField::new('encryptedEmail'),
-            IntegerField::new('receivedEmailsCount'),
+            TextField::new('creatorIp'),
             AssociationField::new('owner'),
+            AssociationField::new('receivedEmails'),
+            DateTimeField::new('createdAt')->setDisabled(),
         ];
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setDefaultSort(['createdAt' => 'DESC']);
     }
 }
