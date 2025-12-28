@@ -15,10 +15,10 @@ class ReceivedEmail
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $realFrom = null;
+    private string $realFrom;
 
     #[ORM\Column(length: 255)]
-    private ?string $realTo = null;
+    private string $realTo;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $subject = null;
@@ -57,7 +57,7 @@ class ReceivedEmail
         return $this->id;
     }
 
-    public function getRealFrom(): ?string
+    public function getRealFrom(): string
     {
         return $this->realFrom;
     }
@@ -69,7 +69,7 @@ class ReceivedEmail
         return $this;
     }
 
-    public function getRealTo(): ?string
+    public function getRealTo(): string
     {
         return $this->realTo;
     }
