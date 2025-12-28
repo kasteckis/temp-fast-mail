@@ -3,13 +3,12 @@
 namespace App\DTO\Response;
 
 use App\Entity\TemporaryEmailBox;
-use Symfony\Component\Uid\Uuid;
 
 class CreateEmailBoxResponseDto
 {
     public function __construct(
         public string $email,
-        public Uuid $uuid,
+        public string $uuid,
     ) {
     }
 

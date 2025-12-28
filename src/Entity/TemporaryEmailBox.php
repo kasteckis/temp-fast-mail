@@ -34,8 +34,8 @@ class TemporaryEmailBox
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
-    #[ORM\Column(type: 'uuid', unique: true)]
-    private Uuid $uuid;
+    #[ORM\Column(length: 255, unique: true)]
+    private string $uuid;
 
     public function __construct()
     {
@@ -127,12 +127,12 @@ class TemporaryEmailBox
         return $this;
     }
 
-    public function getUuid(): Uuid
+    public function getUuid(): string
     {
         return $this->uuid;
     }
 
-    public function setUuid(Uuid $uuid): static
+    public function setUuid(string $uuid): static
     {
         $this->uuid = $uuid;
 
