@@ -25,6 +25,7 @@ class ReceivedEmailCrudController extends AbstractCrudController
         return [
             IdField::new('id')->setDisabled(),
             TextField::new('realFrom'),
+            TextField::new('uuid'),
             TextField::new('realTo'),
             TextField::new('subject'),
             TextField::new('fromName'),

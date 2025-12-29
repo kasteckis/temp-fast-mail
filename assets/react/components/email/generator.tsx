@@ -3,7 +3,7 @@ import {TemporaryEmailBox} from "../../types/types";
 import copy from "copy-to-clipboard";
 
 interface Props {
-  temporaryEmailBox: TemporaryEmailBox|null
+  temporaryEmailBox: TemporaryEmailBox|null;
   handleRegenerateEmail: () => void;
 }
 

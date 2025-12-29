@@ -28,6 +28,8 @@ const Application = () => {
       }
 
       if (savedEmail && savedUuid) {
+        // TODO: Maybe would be smart to validate if this email+uuid still exists server-side? If not, we can just regenerate.
+
         setTemporaryEmailBox({
           email: savedEmail,
           uuid: savedUuid
@@ -39,7 +41,7 @@ const Application = () => {
   return (
     <>
       <Generator temporaryEmailBox={temporaryEmailBox} handleRegenerateEmail={handleRegenerateEmail}/>
-      <Inbox />
+      <Inbox temporaryEmailBox={temporaryEmailBox} />
     </>
   );
 }

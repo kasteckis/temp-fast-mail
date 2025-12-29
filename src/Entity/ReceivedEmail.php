@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ReceivedEmailRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ReceivedEmailRepository::class)]
 class ReceivedEmail
@@ -47,9 +48,13 @@ class ReceivedEmail
     #[ORM\ManyToOne(inversedBy: 'receivedEmails')]
     private ?TemporaryEmailBox $temporaryEmailBox = null;
 
+    #[ORM\Column(length: 255, unique: true)]
+    private string $uuid;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->uuid = Uuid::v4();
     }
 
     public function getId(): ?int
@@ -216,5 +221,17 @@ class ReceivedEmail
     public function __toString(): string
     {
         return sprintf('From %s with subject: %s', $this->realFrom, $this->subject ?? '(no subject)');
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(string $uuid): static
+    {
+        $this->uuid = $uuid;
+
+        return $this;
     }
 }
