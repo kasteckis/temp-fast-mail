@@ -12,7 +12,7 @@ class ReceivedEmailResponseListDto
         public string $real_to,
         public ?string $from_name,
         public string $subject,
-        public \DateTimeImmutable $receivedAt,
+        public \DateTimeImmutable $received_at,
     ) {
     }
 
@@ -24,7 +24,7 @@ class ReceivedEmailResponseListDto
             real_to: $email->getRealTo(),
             from_name: $email->getFromName(),
             subject: $email->getSubject() ?? '(no subject)',
-            receivedAt: $email->getCreatedAt() ?? new \DateTimeImmutable(),
+            received_at: $email->getCreatedAt() ?? new \DateTimeImmutable(),
         );
     }
 }

@@ -23,7 +23,10 @@ class TemporaryEmailBoxGenerator
     {
         do {
             $localPart = $this->faker->unique()->userName;
-            $emailAddress = $localPart . '.' .uniqid() .  '@' . $domain;
+
+            $numbers = sprintf('%04d', random_int(0, 9999));
+
+            $emailAddress = $localPart . '.' . $numbers .  '@' . $domain;
         } while ($this->temporaryEmailBoxRepository->findOneBy(['email' => $emailAddress]) !== null);
 
         return $emailAddress;

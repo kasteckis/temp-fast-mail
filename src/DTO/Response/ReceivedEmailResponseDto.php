@@ -13,7 +13,7 @@ class ReceivedEmailResponseDto
         public ?string $from_name,
         public string $subject,
         public ?string $html,
-        public \DateTimeImmutable $receivedAt,
+        public \DateTimeImmutable $received_at,
     ) {
     }
 
@@ -26,7 +26,7 @@ class ReceivedEmailResponseDto
             from_name: $email->getFromName(),
             subject: $email->getSubject() ?? '(no subject)',
             html: $email->getHtml(),
-            receivedAt: $email->getCreatedAt() ?? new \DateTimeImmutable(),
+            received_at: $email->getCreatedAt() ?? new \DateTimeImmutable(),
         );
     }
 }
