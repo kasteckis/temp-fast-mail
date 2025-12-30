@@ -55,4 +55,14 @@ final class EmailBoxController extends AbstractController
             )
         );
     }
+
+    #[Route('/email-box/{emailBoxUuid}/email/{emailUuid}', name: 'api_view_email_box_one_message', methods: ['GET'])]
+    public function viewOneReceivedEmailMessage(Uuid $emailBoxUuid, Uuid $emailUuid): Response
+    {
+        $receivedEmail = $this->receivedEmailsFetcher->findOneByTemporaryEmailBoxUuidAndReceivedEmailUuid($emailBoxUuid, $emailUuid);
+
+        return $this->render('email_box/view.html.twig', [
+            'receivedEmail' => $receivedEmail,
+        ]);
+    }
 }

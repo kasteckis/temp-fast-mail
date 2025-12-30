@@ -31,6 +31,11 @@ const Inbox = ({temporaryEmailBox}: Props) => {
       })
   }
 
+  const handleViewFullScreen = (email: ReceivedEmailResponseDto) => {
+    console.log(email);
+    window.open('/email-box/'+temporaryEmailBox.uuid+'/email/'+email.uuid, "_blank");
+  }
+
   // Fetch emails every 5 seconds
   useInterval(fetchEmails, 5000);
 
@@ -116,16 +121,47 @@ const Inbox = ({temporaryEmailBox}: Props) => {
                     {/* Header Row */}
                     <div className="is-flex is-justify-content-space-between is-align-items-center mb-4">
 
-                      {/* Back Button */}
-                      <button
-                        className="button is-light"
-                        onClick={() => setSelectedEmail(null)}
-                      >
-                        <span className="icon">←</span>
-                        <span>Back</span>
-                      </button>
+                      {/* Left Side: Buttons DESKTOP */}
+                      <div className="buttons is-hidden-mobile">
+                        {/* Back Button */}
+                        <button
+                          className="button is-light"
+                          onClick={() => setSelectedEmail(null)}
+                        >
+                          <span className="icon">←</span>
+                          <span className="is-hidden-mobile">Back</span>
+                        </button>
 
-                      {/* Date */}
+                        {/* Full Screen Button */}
+                        <button
+                          className="button is-primary"
+                          onClick={() => handleViewFullScreen(selectedEmail)}
+                        >
+                          <span className="icon">⛶</span>
+                          <span className="">View Full Screen</span>
+                        </button>
+                      </div>
+
+                      {/* Left Side: Buttons MOBILE */}
+                      <div className="buttons is-hidden-desktop is-hidden-tablet">
+                        {/* Back Button */}
+                        <button
+                          className="button is-light"
+                          onClick={() => setSelectedEmail(null)}
+                        >
+                          <span className="icon">←</span>
+                        </button>
+
+                        {/* Full Screen Button */}
+                        <button
+                          className="button is-primary"
+                          onClick={() => handleViewFullScreen(selectedEmail)}
+                        >
+                          <span className="icon">⛶</span>
+                        </button>
+                      </div>
+
+                      {/* Right Side: Date */}
                       {selectedEmail.received_at && (
                         <p className="has-text-grey is-size-7">
                           {new Date(selectedEmail.received_at).toLocaleString()}
