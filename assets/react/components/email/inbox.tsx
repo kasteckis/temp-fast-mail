@@ -189,8 +189,6 @@ const Inbox = ({temporaryEmailBox}: Props) => {
 
                     {/* Body */}
                     <div
-                      className="content"
-                      style={{ whiteSpace: "pre-wrap", overflowX: "auto" }}
                       dangerouslySetInnerHTML={{ __html: selectedEmail.html }}
                     />
                   </div>
