@@ -46,9 +46,6 @@ services:
       context: .
       target: frankenphp_prod
     restart: always
-    volumes:
-      - tempfastmail_caddy_data:/data
-      - tempfastmail_caddy_config:/config
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.tempfastmailweb.rule=Host(`tempfastmail.com`)"
@@ -59,6 +56,4 @@ services:
       - tempfastmail
 
 volumes:
-  tempfastmail_caddy_data:
-  tempfastmail_caddy_config:
   volume_database_tempfastmail:
