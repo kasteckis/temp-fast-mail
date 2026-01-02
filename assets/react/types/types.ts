@@ -5,7 +5,7 @@ export interface TemporaryEmailBox {
 
 export interface ReceivedEmailResponseListDto {
   uuid: string;
-  real_from: string;
+  from: string;
   real_to: string;
   from_name: string | null;
   subject: string;
@@ -14,7 +14,7 @@ export interface ReceivedEmailResponseListDto {
 
 export interface ReceivedEmailResponseDto {
   uuid: string;
-  real_from: string;
+  from: string;
   real_to: string;
   from_name: string | null;
   subject: string;

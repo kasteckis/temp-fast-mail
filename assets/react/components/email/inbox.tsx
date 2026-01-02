@@ -91,7 +91,7 @@ const Inbox = ({temporaryEmailBox}: Props) => {
                       <p className="has-text-weight-semibold">{email.from_name}</p>
 
                       {/* email */}
-                      <p className="is-size-7 has-text-grey">{email.real_from}</p>
+                      <p className="is-size-7 has-text-grey">{email.from}</p>
 
                       {/* Subject visible on mobile only (since tablet has its own column) */}
                       <p className="is-size-7 has-text-grey is-hidden-tablet">
@@ -172,9 +172,9 @@ const Inbox = ({temporaryEmailBox}: Props) => {
                     {/* Sender */}
                     <p className="has-text-weight-semibold mb-2">
                       {selectedEmail.from_name ? (
-                        <>From: {selectedEmail.from_name} {" <"}{selectedEmail.real_from}{">"}</>
+                        <>From: {selectedEmail.from_name} {" <"}{selectedEmail.from}{">"}</>
                       ) : (
-                        <>From: {selectedEmail.real_from}</>
+                        <>From: {selectedEmail.from}</>
                       )}
                     </p>
 
