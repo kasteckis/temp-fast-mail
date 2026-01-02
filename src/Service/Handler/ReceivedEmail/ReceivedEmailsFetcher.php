@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\ReceivedEmail;
+namespace App\Service\Handler\ReceivedEmail;
 
 use App\Entity\ReceivedEmail;
 use App\Repository\ReceivedEmailRepository;

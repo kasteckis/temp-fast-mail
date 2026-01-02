@@ -16,28 +16,13 @@ class ReceivedEmailRepository extends ServiceEntityRepository
         parent::__construct($registry, ReceivedEmail::class);
     }
 
-    //    /**
-    //     * @return ReceivedEmail[] Returns an array of ReceivedEmail objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?ReceivedEmail
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function deleteOlderThan24Hours(\DateTimeImmutable $cutoffDate): int
+    {
+        return $this->createQueryBuilder('r')
+            ->delete()
+            ->where('r.createdAt < :cutoffDate')
+            ->setParameter('cutoffDate', $cutoffDate)
+            ->getQuery()
+            ->execute();
+    }
 }

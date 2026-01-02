@@ -16,28 +16,12 @@ class TemporaryEmailBoxRepository extends ServiceEntityRepository
         parent::__construct($registry, TemporaryEmailBox::class);
     }
 
-    //    /**
-    //     * @return TemporaryEmail[] Returns an array of TemporaryEmail objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('t.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?TemporaryEmail
-    //    {
-    //        return $this->createQueryBuilder('t')
-    //            ->andWhere('t.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findOlderThan(\DateTimeImmutable $olderThan): array
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.createdAt < :olderThan')
+            ->setParameter('olderThan', $olderThan)
+            ->getQuery()
+            ->getResult();
+    }
 }

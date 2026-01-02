@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Service\TemporaryEmailBox;
+namespace App\Service\Handler\TemporaryEmailBox;
 
-use App\Repository\DomainRepository;
 use App\Repository\TemporaryEmailBoxRepository;
-use App\Service\Factory\TemporaryEmailBoxFactory;
-use Doctrine\ORM\EntityManagerInterface;
 use Faker\Factory as FakerFactory;
 use Faker\Generator;
 

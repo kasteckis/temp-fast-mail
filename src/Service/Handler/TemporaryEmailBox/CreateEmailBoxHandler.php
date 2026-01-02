@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Service\Handler;
+namespace App\Service\Handler\TemporaryEmailBox;
 
 use App\Entity\TemporaryEmailBox;
 use App\Exception\Domain\ThereAreNoDomainsException;
 use App\Repository\DomainRepository;
 use App\Service\Factory\TemporaryEmailBoxFactory;
-use App\Service\TemporaryEmailBox\TemporaryEmailBoxGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CreateEmailBoxHandler

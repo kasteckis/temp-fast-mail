@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\DTO\Request\CreateEmailRequestDto;
 use App\DTO\Request\ValidateEmailBoxRequestDto;
 use App\DTO\Response\CreateEmailBoxResponseDto;
 use App\DTO\Response\ReceivedEmailResponseDto;
@@ -11,8 +10,8 @@ use App\DTO\Response\ValidateEmailBoxResponseDto;
 use App\Entity\TemporaryEmailBox;
 use App\Repository\TemporaryEmailBoxRepository;
 use App\Service\Client\ClientIpRetriever;
-use App\Service\Handler\CreateEmailBoxHandler;
-use App\Service\ReceivedEmail\ReceivedEmailsFetcher;
+use App\Service\Handler\ReceivedEmail\ReceivedEmailsFetcher;
+use App\Service\Handler\TemporaryEmailBox\CreateEmailBoxHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

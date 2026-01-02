@@ -28,6 +28,10 @@ services:
 2. Set up CloudFlare Email Worker (<b>It's free</b>) which would publish received emails to your instance. [You can follow instructions here](https://github.com/kasteckis/tempfastmail/blob/master/docs/CLOUDFLARE_EMAIL_WORKER_SETUP.md).
 3. Visit your website and start receiving emails! With email `admin@admin.dev` and password `admin`!
 
+## How it handles privacy?
+
+Users can view their emails for up to 48 hours, because all emails are stored for 48 hours. After that they are automatically deleted from the database. You can also manually delete all emails from the admin interface. This is done to ensure that no sensitive information is stored for longer than necessary. Same approach is used on DEMO.
+
 ## How we create production image?
 ```
 $ docker build --target frankenphp_prod -t kasteckis/tempfastmail:latest .

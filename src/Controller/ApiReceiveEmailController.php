@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\DTO\Request\CreateEmailRequestDto;
-use App\Service\Handler\CreateReceivedEmailHandler;
+use App\Service\Handler\ReceivedEmail\CreateReceivedEmailHandler;
 use App\Service\Validator\ReceivedEmail\CreateReceivedEmailAuthValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

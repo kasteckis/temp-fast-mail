@@ -25,7 +25,7 @@ class TemporaryEmailBox
     /**
      * @var Collection<int, ReceivedEmail>
      */
-    #[ORM\OneToMany(targetEntity: ReceivedEmail::class, mappedBy: 'temporaryEmailBox')]
+    #[ORM\OneToMany(targetEntity: ReceivedEmail::class, mappedBy: 'temporaryEmailBox', orphanRemoval: true)]
     private Collection $receivedEmails;
 
     #[ORM\Column(length: 255, nullable: true)]

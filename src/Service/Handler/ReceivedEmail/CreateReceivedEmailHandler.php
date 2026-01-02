@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Handler;
+namespace App\Service\Handler\ReceivedEmail;
 
 use App\DTO\Request\CreateEmailRequestDto;
 use App\Entity\ReceivedEmail;
