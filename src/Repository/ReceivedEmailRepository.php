@@ -25,4 +25,22 @@ class ReceivedEmailRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+
+    public function countWithTemporaryEmailBox(): int
+    {
+        return $this->createQueryBuilder('r')
+            ->select('COUNT(r.id)')
+            ->where('r.temporaryEmailBox IS NOT NULL')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countWithoutTemporaryEmailBox(): int
+    {
+        return $this->createQueryBuilder('r')
+            ->select('COUNT(r.id)')
+            ->where('r.temporaryEmailBox IS NULL')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

@@ -30,8 +30,24 @@
                     <td>{{ activeDomainsCount }}</td>
                 </tr>
                 <tr>
-                    <td>Received Total Emails</td>
-                    <td>{{ receivedEmailsCount }}</td>
+                    <td>Temporary Email Box Count</td>
+                    <td>{{ temporaryEmailBoxCount }}</td>
+                </tr>
+                <tr>
+                    <td>Received Total Emails (with assigned email box)</td>
+                    <td>{{ receivedEmailsWithEmailBoxCount }}</td>
+                </tr>
+                <tr>
+                    <td>Received Total Emails (without assigned email box)</td>
+                    <td>{{ receivedEmailsWithoutEmailBoxCount }}</td>
+                </tr>
+                <tr>
+                    <td>Oldest received email at</td>
+                    <td>{{ oldestReceivedEmailAt.createdAt|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <td>Newest received email at</td>
+                    <td>{{ newestReceivedEmailAt.createdAt|date('Y-m-d H:i:s') }}</td>
                 </tr>
                 </tbody>
             </table>

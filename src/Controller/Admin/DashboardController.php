@@ -8,6 +8,7 @@ use App\Entity\TemporaryEmailBox;
 use App\Entity\User;
 use App\Repository\DomainRepository;
 use App\Repository\ReceivedEmailRepository;
+use App\Repository\TemporaryEmailBoxRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -21,6 +22,7 @@ class DashboardController extends AbstractDashboardController
 {
     public function __construct(
         private DomainRepository $domainRepository,
+        private TemporaryEmailBoxRepository $temporaryEmailBoxRepository,
         private ReceivedEmailRepository $receivedEmailRepository,
     ) {
     }
@@ -29,7 +31,11 @@ class DashboardController extends AbstractDashboardController
     {
         return $this->render('admin/dashboard.html.twig', [
             'activeDomainsCount' => $this->domainRepository->countOfActiveDomains(),
-            'receivedEmailsCount' => $this->receivedEmailRepository->count(),
+            'temporaryEmailBoxCount' => $this->temporaryEmailBoxRepository->count(),
+            'receivedEmailsWithEmailBoxCount' => $this->receivedEmailRepository->countWithTemporaryEmailBox(),
+            'receivedEmailsWithoutEmailBoxCount' => $this->receivedEmailRepository->countWithoutTemporaryEmailBox(),
+            'oldestReceivedEmailAt' => $this->receivedEmailRepository->findOneBy([], ['createdAt' => 'ASC']),
+            'newestReceivedEmailAt' => $this->receivedEmailRepository->findOneBy([], ['createdAt' => 'DESC']),
         ]);
     }
 

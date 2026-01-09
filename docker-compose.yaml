@@ -42,6 +42,8 @@ services:
       MYSQL_DATABASE: project
       MYSQL_USER: project
       MYSQL_PASSWORD: project
+    ports:
+      - "3306:3306"
     volumes:
       - volume_database_tempfastmail:/var/lib/mysql
 
