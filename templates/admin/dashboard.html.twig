@@ -42,6 +42,14 @@
                     <td>{{ receivedEmailsWithoutEmailBoxCount }}</td>
                 </tr>
                 <tr>
+                    <td>Read emails</td>
+                    <td>{{ readEmails }}</td>
+                </tr>
+                <tr>
+                    <td>Unread emails</td>
+                    <td>{{ unreadEmails }}</td>
+                </tr>
+                <tr>
                     <td>Oldest received email at</td>
                     <td>{{ oldestReceivedEmailAt.createdAt|date('Y-m-d H:i:s') }}</td>
                 </tr>

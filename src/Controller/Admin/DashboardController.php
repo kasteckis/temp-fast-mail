@@ -32,8 +32,13 @@ class DashboardController extends AbstractDashboardController
         return $this->render('admin/dashboard.html.twig', [
             'activeDomainsCount' => $this->domainRepository->countOfActiveDomains(),
             'temporaryEmailBoxCount' => $this->temporaryEmailBoxRepository->count(),
+
             'receivedEmailsWithEmailBoxCount' => $this->receivedEmailRepository->countWithTemporaryEmailBox(),
             'receivedEmailsWithoutEmailBoxCount' => $this->receivedEmailRepository->countWithoutTemporaryEmailBox(),
+
+            'readEmails' => $this->receivedEmailRepository->countReadEmails(),
+            'unreadEmails' => $this->receivedEmailRepository->countUnreadEmails(),
+
             'oldestReceivedEmailAt' => $this->receivedEmailRepository->findOneBy([], ['createdAt' => 'ASC']),
             'newestReceivedEmailAt' => $this->receivedEmailRepository->findOneBy([], ['createdAt' => 'DESC']),
         ]);

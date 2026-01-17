@@ -11,6 +11,7 @@ use App\Entity\TemporaryEmailBox;
 use App\Repository\TemporaryEmailBoxRepository;
 use App\Service\Client\ClientIpRetriever;
 use App\Service\Handler\ReceivedEmail\ReceivedEmailsFetcher;
+use App\Service\Handler\ReceivedEmail\ReceivedEmailUpdater;
 use App\Service\Handler\TemporaryEmailBox\CreateEmailBoxHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,6 +27,7 @@ final class EmailBoxController extends AbstractController
         private CreateEmailBoxHandler $createEmailBoxHandler,
         private ReceivedEmailsFetcher $receivedEmailsFetcher,
         private ClientIpRetriever $clientIpRetriever,
+        private ReceivedEmailUpdater $receivedEmailUpdater,
     ) {
     }
 
@@ -70,9 +72,13 @@ final class EmailBoxController extends AbstractController
     #[Route('/api/email-box/{emailBoxUuid}/email/{emailUuid}', name: 'api_get_email_box_one_message', methods: ['GET'])]
     public function getOneReceivedEmailMessage(Uuid $emailBoxUuid, Uuid $emailUuid): Response
     {
+        $receivedEmail = $this->receivedEmailsFetcher->findOneByTemporaryEmailBoxUuidAndReceivedEmailUuid($emailBoxUuid, $emailUuid);
+
+        $this->receivedEmailUpdater->markEmailAsRead($receivedEmail);
+
         return $this->json(
             ReceivedEmailResponseDto::fromEntity(
-                $this->receivedEmailsFetcher->findOneByTemporaryEmailBoxUuidAndReceivedEmailUuid($emailBoxUuid, $emailUuid)
+                $receivedEmail
             )
         );
     }

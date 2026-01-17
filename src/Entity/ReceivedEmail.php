@@ -51,6 +51,9 @@ class ReceivedEmail
     #[ORM\Column(length: 255, unique: true)]
     private string $uuid;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $readAt = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -231,6 +234,18 @@ class ReceivedEmail
     public function setUuid(string $uuid): static
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getReadAt(): ?\DateTimeImmutable
+    {
+        return $this->readAt;
+    }
+
+    public function setReadAt(\DateTimeImmutable $readAt): static
+    {
+        $this->readAt = $readAt;
 
         return $this;
     }
