@@ -37,6 +37,9 @@ class TemporaryEmailBox
     #[ORM\Column(length: 255, unique: true)]
     private string $uuid;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $lastAccessedAt = null;
+
     public function __construct()
     {
         $this->uuid = Uuid::v4();
@@ -135,6 +138,18 @@ class TemporaryEmailBox
     public function setUuid(string $uuid): static
     {
         $this->uuid = $uuid;
+
+        return $this;
+    }
+
+    public function getLastAccessedAt(): ?\DateTimeImmutable
+    {
+        return $this->lastAccessedAt;
+    }
+
+    public function setLastAccessedAt(?\DateTimeImmutable $lastAccessedAt): static
+    {
+        $this->lastAccessedAt = $lastAccessedAt;
 
         return $this;
     }

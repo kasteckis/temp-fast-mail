@@ -3,6 +3,7 @@
 namespace App\Service\Handler\ReceivedEmail;
 
 use App\Entity\ReceivedEmail;
+use App\Entity\TemporaryEmailBox;
 use App\Repository\ReceivedEmailRepository;
 use App\Repository\TemporaryEmailBoxRepository;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -17,19 +18,13 @@ class ReceivedEmailsFetcher
     }
 
     /**
-     * @param Uuid $uuid
+     * @param TemporaryEmailBox $temporaryEmailBox
      * @return ReceivedEmail[]
      */
-    public function fetchByTemporaryEmailBoxUuid(Uuid $uuid): array
+    public function fetchByTemporaryEmailBox(TemporaryEmailBox $temporaryEmailBox): array
     {
-        $emailBox = $this->temporaryEmailBoxRepository->findOneBy(['uuid' => $uuid]);
-
-        if ($emailBox === null) {
-            throw new NotFoundHttpException();
-        }
-
         return $this->receivedEmailRepository->findBy(
-            ['temporaryEmailBox' => $emailBox],
+            ['temporaryEmailBox' => $temporaryEmailBox],
             ['createdAt' => 'DESC']
         );
     }

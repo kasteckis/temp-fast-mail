@@ -13,6 +13,8 @@ use App\Service\Client\ClientIpRetriever;
 use App\Service\Handler\ReceivedEmail\ReceivedEmailsFetcher;
 use App\Service\Handler\ReceivedEmail\ReceivedEmailUpdater;
 use App\Service\Handler\TemporaryEmailBox\CreateEmailBoxHandler;
+use App\Service\Handler\TemporaryEmailBox\TemporaryEmailBoxFetcher;
+use App\Service\Handler\TemporaryEmailBox\TemporaryEmailBoxUpdater;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +30,8 @@ final class EmailBoxController extends AbstractController
         private ReceivedEmailsFetcher $receivedEmailsFetcher,
         private ClientIpRetriever $clientIpRetriever,
         private ReceivedEmailUpdater $receivedEmailUpdater,
+        private TemporaryEmailBoxFetcher $temporaryEmailBoxFetcher,
+        private TemporaryEmailBoxUpdater $temporaryEmailBoxUpdater,
     ) {
     }
 
@@ -59,7 +63,10 @@ final class EmailBoxController extends AbstractController
     #[Route('/api/email-box/{emailBoxUuid}/emails', name: 'api_get_email_box_messages', methods: ['GET'])]
     public function getEmailBoxByUuid(Uuid $emailBoxUuid): Response
     {
-        $receivedEmails = $this->receivedEmailsFetcher->fetchByTemporaryEmailBoxUuid($emailBoxUuid);
+        $temporaryEmailBox = $this->temporaryEmailBoxFetcher->fetchByUuid($emailBoxUuid);
+        $this->temporaryEmailBoxUpdater->markAsLastAccessedNow($temporaryEmailBox);
+
+        $receivedEmails = $this->receivedEmailsFetcher->fetchByTemporaryEmailBox($temporaryEmailBox);
 
         $receivedEmailsResponseDtos = array_map(
             fn ($receivedEmail) => ReceivedEmailResponseListDto::fromEntity($receivedEmail),

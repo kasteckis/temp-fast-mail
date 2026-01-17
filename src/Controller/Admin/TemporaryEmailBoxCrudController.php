@@ -29,6 +29,7 @@ class TemporaryEmailBoxCrudController extends AbstractCrudController
             AssociationField::new('owner'),
             AssociationField::new('receivedEmails'),
             DateTimeField::new('createdAt')->setDisabled(),
+            DateTimeField::new('lastAccessedAt')->setDisabled(),
         ];
     }
 

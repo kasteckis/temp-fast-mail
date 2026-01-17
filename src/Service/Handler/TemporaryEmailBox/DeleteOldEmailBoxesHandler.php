@@ -27,7 +27,6 @@ class DeleteOldEmailBoxesHandler
             }
         }
 
-
         $this->entityManager->flush();
 
         return $deletedInboxCount;
