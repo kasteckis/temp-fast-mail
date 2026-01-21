@@ -1,10 +1,7 @@
 # Self Hosted Temporary Fast Email Box
 
-<div align="center">
-    First self-hosted, disposable fast email inbox that receives and displays messages.
-    
-    <b>You can check out working DEMO: [TempFastMail.com](https://tempfastmail.com)</b>
-</div>
+First self-hosted, disposable fast email inbox that receives and displays messages.  
+<b>You can check out working DEMO: [TempFastMail.com](https://tempfastmail.com)</b>  
 
 ![Temp Fast Mail frontpage photo](https://github.com/kasteckis/tempfastmail/blob/master/docs/readme.png?raw=true)
 
